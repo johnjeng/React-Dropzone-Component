@@ -110,13 +110,13 @@ DropzoneComponent = React.createClass({
     componentWillUpdate: function() {
         var djsConfigObj, postUrlConfigObj;
 
-        djsConfigObj = this.props.djsConfig ? this.props.djsConfig : {};        
+        djsConfigObj = this.props.djsConfig ? this.props.djsConfig : {};
         try {
-            postUrlConfigObj = this.props.config.postUrl ? {url: this.props.config.postUrl} : {};            
-        } catch (err) {   
+            postUrlConfigObj = this.props.config.postUrl ? {url: this.props.config.postUrl} : {};
+        } catch (err) {
             postUrlConfigObj = {};
         }
-        
+
         this.dropzone.options = Helpers.extend(true, {}, this.dropzone.options, djsConfigObj, postUrlConfigObj);
     },
 
@@ -137,17 +137,26 @@ DropzoneComponent = React.createClass({
 
         if (!this.props.config.postUrl && this.props.action) {
             return (
-                <form action={this.props.action} className={className}>
-                    {icons}
+                <div>
+                    {this.props.showUploader &&
+                        <form action={this.props.action} className={className}>
+                            {icons}
+                        </form>
+                    }
                     {this.props.children}
-                </form>
+                </div>
             );
         } else {
             return (
-                <div className={className}>
-                    {icons}
+                <div>
+                    {this.props.showUploader &&
+                        <div className={className}>
+                            {icons}
+                        </div>
+                    }
                     {this.props.children}
                 </div>
+
             );
         }
     },
